@@ -50,14 +50,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    bool isAcceled = false;
     public void OnAcceleration(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Performed)
+        if(context.phase == InputActionPhase.Performed && IsGround())
         {
+            isAcceled = true;
             moveSpeed *= 2;
         }
-        else if(context.phase == InputActionPhase.Canceled)
+        else if(context.phase == InputActionPhase.Canceled && isAcceled)
         {
+            isAcceled = false;
             moveSpeed /= 2;
         }
     }
